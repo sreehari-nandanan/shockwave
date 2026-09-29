@@ -59,7 +59,7 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Safe LocalStorage Initializer
   const loadStored = <T,>(key: string, fallback: T): T => {
     try {
-      const saved = localStorage.getItem(`shockwave_${key}`);
+      const saved = localStorage.getItem(`shockwave_v2_${key}`);
       return saved ? JSON.parse(saved) : fallback;
     } catch {
       return fallback;
@@ -120,12 +120,12 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Sync to LocalStorage
   useEffect(() => {
     try {
-      localStorage.setItem('shockwave_teams', JSON.stringify(teams));
-      localStorage.setItem('shockwave_questions', JSON.stringify(questions));
-      localStorage.setItem('shockwave_scores', JSON.stringify(scores));
-      localStorage.setItem('shockwave_announcements', JSON.stringify(announcements));
-      localStorage.setItem('shockwave_event_state', JSON.stringify(eventState));
-      localStorage.setItem('shockwave_current_user', JSON.stringify(currentUser));
+      localStorage.setItem('shockwave_v2_teams', JSON.stringify(teams));
+      localStorage.setItem('shockwave_v2_questions', JSON.stringify(questions));
+      localStorage.setItem('shockwave_v2_scores', JSON.stringify(scores));
+      localStorage.setItem('shockwave_v2_announcements', JSON.stringify(announcements));
+      localStorage.setItem('shockwave_v2_event_state', JSON.stringify(eventState));
+      localStorage.setItem('shockwave_v2_current_user', JSON.stringify(currentUser));
     } catch (e) {
       console.warn('Storage sync failed:', e);
     }
@@ -134,27 +134,27 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Listen for LocalStorage changes from other tabs as fallback
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'shockwave_event_state' && e.newValue) {
+      if (e.key === 'shockwave_v2_event_state' && e.newValue) {
         try {
           setEventState(JSON.parse(e.newValue));
         } catch (err) { }
       }
-      if (e.key === 'shockwave_questions' && e.newValue) {
+      if (e.key === 'shockwave_v2_questions' && e.newValue) {
         try {
           setQuestions(JSON.parse(e.newValue));
         } catch (err) { }
       }
-      if (e.key === 'shockwave_teams' && e.newValue) {
+      if (e.key === 'shockwave_v2_teams' && e.newValue) {
         try {
           setTeams(JSON.parse(e.newValue));
         } catch (err) { }
       }
-      if (e.key === 'shockwave_scores' && e.newValue) {
+      if (e.key === 'shockwave_v2_scores' && e.newValue) {
         try {
           setScores(JSON.parse(e.newValue));
         } catch (err) { }
       }
-      if (e.key === 'shockwave_announcements' && e.newValue) {
+      if (e.key === 'shockwave_v2_announcements' && e.newValue) {
         try {
           setAnnouncements(JSON.parse(e.newValue));
         } catch (err) { }
